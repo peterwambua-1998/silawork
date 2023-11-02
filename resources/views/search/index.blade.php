@@ -23,13 +23,13 @@
             <div class="categories-display">
                 <form>
                     <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                        <input class="form-check-input" type="checkbox" @if($queryname == 'Baby Products') checked @endif value="" id="defaultCheck1">
                         <p class="form-check-label">
-                        Baby Products
+                        Baby Products <?php $p = Request::is('search-category') ?><?php var_dump($p) ?>
                         </p>
                     </div>
                     <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                        <input class="form-check-input" type="checkbox"  id="defaultCheck1">
                         <p class="form-check-label">
                         Men's Clothing
                         </p>
@@ -43,7 +43,7 @@
                     <div class="form-check mb-3">
                         <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                         <p class="form-check-label">
-                            Boy's Clothing
+                            Baby Clothing
                         </p>
                     </div>
                     <div class="form-check mb-3">
@@ -75,7 +75,7 @@
            
             
         </div>
-        <div class="col-md-7 mt-3">
+        <div class="col-md-10 mt-3">
             <h3 style="text-align: center;">{{ $queryname }}</h3>
 
             <hr>
@@ -89,31 +89,27 @@
                 @else
                 @foreach ($products as $product)
                     
-                <div class="col-md-6">
-                    
-                        <div class="card mb-2" style="width: 18rem; box-shadow: rgba(0, 0, 0, 0.07) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px; background-color: transparent !important;">
-                            <img class="card-img-top img-fluid" src="/storage/{{ $product->image_url }}" alt="Card image cap">
-                            <div class="body-card p-2" >
-                              
-                                <h5 class="card-title" style="color: #E8630A;">{{ $product->title }}</h5>
-                                <span>
-                                    <a href="{{ route('products.show', $product->id) }}">See More</a>
-                                </span>
-                                
-                            </div>
+                <div class="col-md-4">
+                    <div class="card mb-2" style="width: 18rem; box-shadow: rgba(0, 0, 0, 0.07) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px; background-color: transparent !important;">
+                        <img class="card-img-top img-fluid" src="{{asset('store/'. $product->image_url)}}" alt="Card image cap">
+                        <div class="body-card p-2" >
                             
+                            <h5 class="card-title" style="color: #E8630A;">{{ $product->title }}</h5>
+                            <span>
+                                <a href="{{ route('products.show', $product->id) }}">See More</a>
+                            </span>
                         </div>
-                    
+                        
+                    </div>
                 </div>
             
                 @endforeach
                 @endif
-
                 
             </div>
         </div>
 
-        <div class="col-md-3 mt-4">
+        {{-- <div class="col-md-3 mt-4">
             <h5 class="mb-5">Popular</h5>
             
                 <img class="card-img-top" src="../product-details-page/images/bottle.jpg" alt="Card image cap">
@@ -138,7 +134,7 @@
                 </div>
                 
 
-        </div>
+        </div> --}}
     </div>
 </div>
 

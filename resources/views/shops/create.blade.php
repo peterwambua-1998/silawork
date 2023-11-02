@@ -10,21 +10,24 @@
             <div class="form-group">
               <label for="exampleInputEmail1">
                   Shop Title</label>
-              <input type="text" class="form-control" id="exampleInputEmail1"  placeholder="Enter Shop Title" name="shop_title" required>
-              
+              <input type="text" class="form-control" id="shop"  placeholder="Enter Shop Title" name="shop_title" required>
+              <span class="text-danger" id="shop_error"></span>
             </div>
             <div class="form-group">
               <label for="exampleInputPassword1">Description</label>
-              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Description" name="shop_decription" required>
+              <input type="text" class="form-control" id="decription" placeholder="Enter Description" name="shop_decription" required>
+              <span class="text-danger" id="description_error"></span>
+            
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Location</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Description" name="shop_location" required>
+                <input type="text" class="form-control" id="location" placeholder="Enter Description" name="shop_location" required>
+                <span class="text-danger" id="location_error"></span>
             </div>
             <div class="form-group">
                 <label for="exampleFormControlFile1">Shop Logo</label>
-                <input type="file" class="form-control-file" id="exampleFormControlFile1" name="shop_img">
-              </div>
+                <input type="file" class="form-control-file" id="exampleFormControlFile1" name="shop_img" required>
+            </div>
             
             <input type="hidden" name="user" value="{{ Auth::user()->id }}">
 
@@ -35,11 +38,13 @@
             <h3>Contact Details</h3>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Phone Number</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1"  placeholder="Enter Phone Number" name="shop_pnumber" required>
+                    <input type="text" class="form-control" id="pnumber"  placeholder="Enter Phone Number" name="shop_pnumber" required>
+                    <span class="text-danger" id="pnumber_error"></span>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email Address</label>
                     <input type="email" class="form-control" id="exampleInputEmail1"  placeholder="Enter Email Address" name="shop_email" required>
+                    <span class="text-danger" id="pnumber_error"></span>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Facebook Profile/Page (optional)</label>
@@ -89,12 +94,12 @@
 
                 <div class="form-group">
                     <label for="exampleFormControlFile1">Product Image</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="product_img">
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="product_img" required>
                   </div>
             </div>
                 
 
-            <button type="submit" class="btn" style="background-color: #E8630A;">Submit</button>
+            <button type="submit" class="btn"  style="background-color: #E8630A;">Submit</button>
         </form>
 </div>
 @endsection
@@ -107,6 +112,8 @@
         $('.show-product').on('click', function() {
             $('.add-product').toggle('slow');
         });
+
+        
     });
 </script>
 @endpush

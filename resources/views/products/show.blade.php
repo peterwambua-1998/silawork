@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="image-div">
-                <img src="/storage/{{ $product->image_url }}" alt="" srcset="" class="img-fluid">
+                <img src="{{asset('store/'.$product->image_url)}}" alt="" srcset="" class="img-fluid">
             </div>
         </div>
         <div class="col-md-6">
@@ -25,7 +25,7 @@
                         Description
                     </p>
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, quos eaque? Aperiam magnam explicabo ullam! Illo, libero? Quis eveniet inventore recusandae quisquam dolor! Laudantium exercitationem nihil accusantium ratione molestias corporis.
+                        {{$product->features}}
                     </p>
                 </div>
                 
@@ -106,7 +106,7 @@
   <section id="testimonials">
     <!--heading--->
     <div class="testimonial-heading">
-        <span>Comments</span>
+        <span>Reviews</span>
         <h1>Clients Says</h1>
     </div>
     <!--testimonials-box-container------>
@@ -242,13 +242,12 @@
 
     @if (count($other_products) === 5)
     <div class="mt-5 swiffy-slider slider-item-show3 slider-item-reveal slider-nav-outside slider-nav-round slider-nav-visible slider-indicators-outside slider-indicators-round slider-indicators-dark slider-nav-animation slider-nav-animation-fadein slider-item-first-visible">
+        
         <ul class="slider-container" >
-            <li><img src="https://source.unsplash.com/49b9l_29ceA/1600x900" style="max-width: 100%;height: auto;"></li>
-            <li><img src="https://source.unsplash.com/nKAglN6HBH8/1600x900" style="max-width: 100%;height: auto;"></li>
-            <li><img src="https://source.unsplash.com/E9ZwWcMGzj8/1600x900" style="max-width: 100%;height: auto;"></li>
-            <li><img src="https://source.unsplash.com/E9ZwWcMGzj8/1600x900" style="max-width: 100%;height: auto;"></li>
-            <li><img src="https://source.unsplash.com/E9ZwWcMGzj8/1600x900" style="max-width: 100%;height: auto;"></li>
-            
+            @foreach ($other_products as $item)
+            {{-- 1600*900 --}}
+            <li><img src="{{asset('store/'. $item->image_url)}}" style="max-width: 100%;height: auto;"></li>
+            @endforeach
         </ul>
   
         <button type="button" class="slider-nav"></button>
@@ -260,10 +259,10 @@
     @elseif(count($other_products) === 4)
     <div class="mt-5 swiffy-slider slider-item-show2 slider-item-reveal slider-nav-outside slider-nav-round slider-nav-visible slider-indicators-outside slider-indicators-round slider-indicators-dark slider-nav-animation slider-nav-animation-fadein slider-item-first-visible">
         <ul class="slider-container" >
-            <li><img src="https://source.unsplash.com/49b9l_29ceA/1600x900" style="max-width: 100%;height: auto;"></li>
-            <li><img src="https://source.unsplash.com/nKAglN6HBH8/1600x900" style="max-width: 100%;height: auto;"></li>
-            <li><img src="https://source.unsplash.com/E9ZwWcMGzj8/1600x900" style="max-width: 100%;height: auto;"></li>
-            <li><img src="https://source.unsplash.com/E9ZwWcMGzj8/1600x900" style="max-width: 100%;height: auto;"></li>
+            @foreach ($other_products as $item)
+            {{-- 1600*900 --}}
+            <li><img src="{{asset('store/'. $item->image_url)}}" style="max-width: 100%;height: auto;"></li>
+            @endforeach
             
         </ul>
   
@@ -275,9 +274,10 @@
     @elseif(count($other_products) === 3)
     <div class="mt-5 swiffy-slider slider-item-show2 slider-item-reveal slider-nav-outside slider-nav-round slider-nav-visible slider-indicators-outside slider-indicators-round slider-indicators-dark slider-nav-animation slider-nav-animation-fadein slider-item-first-visible">
         <ul class="slider-container" >
-            <li><img src="https://source.unsplash.com/49b9l_29ceA/1600x900" style="max-width: 100%;height: auto;"></li>
-            <li><img src="https://source.unsplash.com/nKAglN6HBH8/1600x900" style="max-width: 100%;height: auto;"></li>
-            <li><img src="https://source.unsplash.com/E9ZwWcMGzj8/1600x900" style="max-width: 100%;height: auto;"></li>
+            @foreach ($other_products as $item)
+            {{-- 1600*900 --}}
+            <li><img src="{{asset('store/'. $item->image_url)}}" style="max-width: 100%;height: auto;"></li>
+            @endforeach
             
         </ul>
   
@@ -289,8 +289,10 @@
     @elseif(count($other_products) === 2)
     <div class="mt-5 swiffy-slider slider-item-show1 slider-item-reveal slider-nav-outside slider-nav-round slider-nav-visible slider-indicators-outside slider-indicators-round slider-indicators-dark slider-nav-animation slider-nav-animation-fadein slider-item-first-visible">
         <ul class="slider-container" >
-            <li><img src="https://source.unsplash.com/49b9l_29ceA/1600x900" style="max-width: 100%;height: auto;"></li>
-            <li><img src="https://source.unsplash.com/nKAglN6HBH8/1600x900" style="max-width: 100%;height: auto;"></li>
+            @foreach ($other_products as $item)
+            {{-- 1600*900 --}}
+            <li><img src="{{asset('store/'. $item->image_url)}}" style="max-width: 100%;height: auto;"></li>
+            @endforeach
             
         </ul>
   
@@ -302,7 +304,10 @@
     @elseif(count($other_products) === 1)
     <div style="height: 20vh" class="mt-5 swiffy-slider slider-item-show1 slider-item-reveal slider-nav-outside slider-nav-round slider-nav-visible slider-indicators-outside slider-indicators-round slider-indicators-dark slider-nav-animation slider-nav-animation-fadein slider-item-first-visible">
         <ul class="slider-container" >
-            <li><img src="https://source.unsplash.com/49b9l_29ceA/1600x900" style="max-width: 100%;height: auto;"></li>
+            @foreach ($other_products as $item)
+            {{-- 1600*900 --}}
+            <li><img src="{{asset('store/'. $item->image_url)}}" style="max-width: 100%;height: auto;"></li>
+            @endforeach
             
         </ul>
   

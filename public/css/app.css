@@ -10972,20 +10972,21 @@ a.text-dark:focus {
 .outer-grid {
 display: grid;
 grid-template-columns: 1fr 1fr 1fr 1fr;
-gap: 20px;
+gap: 15px;
 margin-bottom: 50px;
+
 }
 
 .middle {
 background-color: var(--white);
 border-radius: 5px;
-
+padding: 5%;
+height: fit-content;
 }
 
 .middle h4 {
-margin-left: 30px;
-margin-top: 10px;
-position: absolute;
+
+
 }
 
 .inner-grid {

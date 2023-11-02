@@ -1,14 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-5">
 
+<div class="container mt-5">
+  @if ($errors->any())
+  <div class="alert alert-danger">
+      <ul>
+          @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+          @endforeach
+      </ul>
+  </div>
+  @endif
     <div>
         <div class="row">
             <div class="col-md-8">
                 <div class="row">
                     <div class="col-sm-3" class="div-img-brand">
-                        <img src="/storage/{{ $shop->img_url }}" alt="shop"  class="brand-img" width="150px">
+                        <img src="{{asset('store/'.$shop->img_url)}}" alt="shop"  class="brand-img" width="150px">
                     </div>
                     <div class="col-sm-6" >
                         
@@ -52,7 +61,7 @@
                             
                             <div class="col-md-4">
                                 <div class="card mb-2 mt-2" style="width: 18rem; box-shadow: rgba(0, 0, 0, 0.07) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;">
-                                    <img class="card-img-top" src="/storage/{{ $product->image_url }}" alt="Card image cap">
+                                    <img class="card-img-top" src="{{asset('store/'.$product->image_url)}}" alt="Card image cap">
                                     <div class="card-body">
                                     
                                         <a href="{{ route('products.show', $product->id) }}"><h5 class="card-title" style="color: #E8630A;">{{ Str::limit($product->title, 20) }}</h5></a>
@@ -248,56 +257,56 @@
 
 
 
-
+@foreach ($products as $item)
 <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-            
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Title</label>
-                  <br>
-                  <label for="">Eg: [Product Name] [Colors Offered] [Sizes if any]</label>
-                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Eg: [Product Name] [Colors Offered] [Sizes if any]" name="title" required>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Features</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="" name="features" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Select Category</label>
-                    <select class="form-control" id="exampleFormControlSelect1" name="category_id">
-                      <option>---- select category ----</option>
-                      @foreach ($categories as $category)
-                        
-                        <option value="{{ $category->id }}">{{ $category->title }}</option>
-                                           
-                      @endforeach
-
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleFormControlFile1">Product Image</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="prod_img">
-                  </div>
-
-                  <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>    
-        </div>
-        
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      <div class="modal-body">
+          <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+              @csrf
+          
+              <div class="form-group">
+                <label for="exampleInputPassword1">Title</label>
+                <br>
+                <label for="">Eg: [Product Name] [Colors Offered] [Sizes if any]</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Eg: [Product Name] [Colors Offered] [Sizes if any]" name="title" required >
+              </div>
+              <div class="form-group">
+                  <label for="exampleInputPassword1">Description</label>
+                  <input type="text" class="form-control" id="exampleInputPassword1" placeholder="" name="features" required >
+              </div>
+              
+              <div class="form-group">
+                  <label for="exampleFormControlSelect1">Select Category</label>
+                  <select class="form-control" id="exampleFormControlSelect1" name="category_id">
+                    <option>---- select category ----</option>
+                    @foreach ($categories as $category)
+                      <option value="{{ $category->id }}">{{ $category->title }}</option>
+                    @endforeach
+
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlFile1">Product Image</label>
+                  <input type="file" class="form-control-file" id="exampleFormControlFile1" name="prod_img">
+                </div>
+
+                <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>    
+      </div>
+      
     </div>
-</div>
+  </div>
+</div> 
+@endforeach
+
 
 
 @foreach ($products as $product)
@@ -312,10 +321,10 @@
           </button>
         </div>
         <div class="modal-body">
-            <form action="{{ route('products.update', $product->id) }}" method="POST">
+            <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
 
                 @csrf
-                @method('UPDATE')
+                @method('PATCH')
             
                 <div class="form-group">
                   <label for="exampleInputPassword1">Title</label>
@@ -334,7 +343,9 @@
                       <option>---- select category ----</option>
                       @foreach ($categories as $category)
                         
-                        <option value="{{ $category->id }}" >{{ $category->title }}</option>
+                        @foreach ($categories as $category)
+                        <option @if($category->id == $item->category_id) selected @endif value="{{ $category->id }}">{{ $category->title }}</option>
+                      @endforeach
                                            
                       @endforeach
 

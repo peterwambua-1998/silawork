@@ -99,17 +99,20 @@ class SearchController extends Controller
 
     public function category(Request $request)
     {
+
+
         $query = $request->get('query');
 
-        $category = Category::where('title', 'LIKE', $query)->first()->id;
+        $category = Category::where('title', 'LIKE', '%'.$query.'%')->first();
 
         if($category == null) {
             return redirect()->back();
         }
 
-        $products = Product::where('category_id', '=', $category)->get();
+        $products = Product::where('category_id', '=', $category->id)->get();
 
         $count = count($products);
+
 
         return view('search.index')->with(['products' => $products, 'queryname' => $query, 'count' => $count]);
     }

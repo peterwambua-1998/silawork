@@ -49805,6 +49805,9 @@ $(document).ready(function () {
     autoplay: true,
     autoplayTimeout: 3000,
     autoplayHoverPause: true,
+    navigation: false,
+    navigationText : ["prev","next"],
+    pagination: true,
     responsive: {
       0: {
         items: 1,

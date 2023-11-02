@@ -31,3 +31,4 @@ Route::get('/sellwithus', function(){
 
 Route::get('/search-results', 'SearchController@index')->name('search');
 Route::get('/search-category', 'SearchController@category')->name('search-category');
+

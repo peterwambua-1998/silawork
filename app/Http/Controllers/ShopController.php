@@ -19,7 +19,9 @@ class ShopController extends Controller
      */
     public function index()
     {
-        //
+        // $user = auth()->user();
+        // $shop = Shop::where('user_id', $user->id)->get()->last();
+        // return view('shops.index.', compact('user', 'shop'));
     }
 
     /**
@@ -43,14 +45,12 @@ class ShopController extends Controller
      */
     public function store(Request $request)
     {
-
         $shop = new Shop();
         $shop->user_id = $request->user;
         $shop->title = $request->shop_title;
         $shop->description = $request->shop_decription;
         if ($request->hasFile('shop_img')) {
-            $imagePath = $request->file('shop_img')->store('shop', 'public');
-
+            $imagePath = $request->file('shop_img')->store('shops', 'public_uploads');
             $shop->img_url = $imagePath;
         }
 
@@ -85,7 +85,7 @@ class ShopController extends Controller
             $product->shop_id = $shop->id;
 
             if ($request->hasFile('product_img')) {
-                $imagePath = $request->file('product_img')->store('products', 'public');
+                $imagePath = $request->file('product_img')->store('prods', 'public_uploads');
 
                 $product->image_url = $imagePath;
             }
@@ -159,7 +159,7 @@ class ShopController extends Controller
         $shop->title = $request->shop_title;
         $shop->description = $request->shop_decription;
         if ($request->hasFile('shop_img')) {
-            $imagePath = $request->file('shop_img')->store('shop', 'public');
+            $imagePath = $request->file('shop_img')->store('shops', 'public_uploads');
 
             $shop->img_url = $imagePath;
         }

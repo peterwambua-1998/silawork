@@ -6,8 +6,12 @@ use App\Contact;
 use App\Product;
 use App\Reviews;
 use App\Shop;
+use GdImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -39,8 +43,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
-
         /*
         $request->validate([
             'title' => 'required',
@@ -58,7 +60,7 @@ class ProductController extends Controller
 
 
         if ($request->hasFile('prod_img')) {
-            $imagePath = $request->file('prod_img')->store('products', 'public');
+            $imagePath = $request->file('prod_img')->store('prods', 'public_uploads');
 
             $product->image_url = $imagePath;
         }
@@ -81,25 +83,19 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
 
-        $similarProducts = Product::where('shop_id', $product->shop_id)->take(6)->get();
-
-        $new = Arr::except($similarProducts, '0');
+        $similarProducts = Product::where('shop_id', $product->shop_id)->where('id','!=',$product->id)->take(6)->get();
 
         $contacts = Contact::where('shop_id', $product->shop_id)->first();
 
         //$reviews = Reviews::where('product_id', $product->id)->get();
-        $shop = Shop::where('id', $product->id)->first();
-
         
-        
-
+        $shop = Shop::where('id', $product->shop_id)->first();
 
         return view('products.show')->with([
             'product' => $product,
-            'new' => $new,
             'contacts' => $contacts,
             //'reviews' => $reviews,
-            'other_products' => $new,
+            'other_products' => $similarProducts,
             'shop' => $shop
         ]);
     }
@@ -124,6 +120,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $request->validate([
+            'prod_img' => 'max:3000'
+        ]);
+
         $product = Product::find($id);
         $product->title = $request->title;
         $product->features = $request->features;
@@ -131,9 +132,17 @@ class ProductController extends Controller
         $product->shop_id = $request->shop_id;
 
         if ($request->hasFile('prod_img')) {
-            $imagePath = $request->file('prod-img')->store('products', 'public');
+            // $image = imagecreatefrompng($request->file('prod_img'));
+            // $scaled = imagescale($image, 800, 800);
+            $image = Image::make($request->file('prod_img'))->resize(640, 640);
+            $filename = Str::random(60).'.'.explode('/',$image->mime())[1];
+            $imagePath = 'store/prods/'.$filename;
+            $path = 'prods/'.$filename;
+            $image->save(public_path($imagePath));
 
-            $product->image_url = $imagePath;
+            //put('prods/'.$filename, $image);
+            
+            $product->image_url = $path;
         }
 
 

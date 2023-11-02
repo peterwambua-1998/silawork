@@ -42,12 +42,24 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link letter-space-small" href="/" style="font-weight: 600; ">Home</a>
+                            <a class="nav-link letter-space-small @if(Request::is('/')) active @endif" href="/" style="font-weight: 600; ">Home</a>
                         </li>
 
+                        @if (Auth::user())
+                        <?php 
+                            $shop = App\Shop::where('user_id', '=', Auth::user()->id)->first();
+                        ?>
                         <li class="nav-item">
-                          <a class="nav-link letter-space-small" href="{{ route('sellwithus') }}" style="font-weight: 600; ">Add Shop</a>
+                          <a class="nav-link letter-space-small" href="{{ route('shop.show', $shop->id) }}" style="font-weight: 600; ">Shop</a>
                         </li>
+                        @else
+                        <li class="nav-item">
+                            <a class="nav-link letter-space-small" href="{{route('sellwithus')}}" style="font-weight: 600; ">Sell</a>
+                        </li>
+                        @endif
+                        
+                        
+                       
 
                         <li class="nav-item">
                             <a class="nav-link letter-space-small" href="#" style="font-weight: 600; ">Contact</a>
@@ -84,7 +96,7 @@
                     </ul>
 
                 
-                    @if (Illuminate\Support\Facades\Route::is('search'))
+                    @if (Request::is('search-category'))
                        
                     @else
                     <!-- Right Side Of Navbar -->
